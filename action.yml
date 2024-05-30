@@ -1,0 +1,67 @@
+name: 'CodeQL Scan Action'
+description: 'Run CodeQL Scan'
+branding:
+  icon: 'check-circle'
+  color: 'orange'
+inputs:
+  git_ref:
+    description: 'Git ref to be analyzed'
+    required: false
+    default: ${{ github.ref }}
+  commit_sha:
+    description: 'Commit SHA'
+    required: false
+    default: ${{ github.sha }}
+  language_to_scan:
+    description: 'Example, python'
+    required: true
+  token:
+    description: 'GitHub token'
+    required: true
+  codeql_scan_type:
+    description: 'Query suite to use for the analysis
+      https://docs.github.com/en/code-security/codeql-cli/codeql-cli-manual/database-analyze#querysuitepack
+      '
+    required: false
+    default: 'code-scanning'
+  build_mode:
+    description: 'Used for compiled languages. Set to none, autobuild or manual'
+    required: false
+    default: ''
+  build_command:
+    description: 'Used for compiled languages. Build command or script that
+      invokes the build process for the codebase'
+    required: false
+    default: ''
+  codeql_config_file:
+    description: 'codeql_config_file'
+    required: false
+    default: ''
+
+outputs:
+  cql_sarif_log_json:
+    description: 'JSON-formatted Docker run step output'
+    value: ${{ toJSON(steps.run-codeql-scan.outputs.cql_sarif_log_json) }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: CodeQL Scan
+      shell: bash
+      id: run-codeql-scan
+      env:
+        INPUT_GITHUB_ACTION_PATH: ${{ github.action_path }}
+        INPUT_CODEQL_HOME: ${{ github.workspace }}
+        GH_CONFIG_DIR: ${{ github.action_path }}/.config/gh
+        LANGUAGE_TO_SCAN: ${{ inputs.language_to_scan }}
+        GITHUB_TOKEN: ${{ inputs.token }}
+        INPUT_REF: ${{ inputs.git_ref }}
+        INPUT_HASH: ${{ inputs.commit_sha }}
+        INPUT_REPO: ${{ github.repository }}
+        INPUT_CODEQL_SCAN_TYPE: ${{ inputs.codeql_scan_type }}
+        INPUT_BUILD_MODE: ${{ inputs.build_mode }}
+        INPUT_BUILD_CMD: ${{ inputs.build_command }}
+        INPUT_CODEQL_CONFIG_FILE: ${{ inputs.codeql_config_file }}
+
+      run: |
+        bash -c '$INPUT_GITHUB_ACTION_PATH/src/codeql-scan.sh'

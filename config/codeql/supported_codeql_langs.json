@@ -1,0 +1,84 @@
+{
+    "languages_supported": [
+      {
+        "name": "python",
+        "can_compile": false
+      },
+      {
+        "name": "javascript",
+        "can_compile": false
+      },
+      {
+        "name": "typescript",
+        "can_compile": false
+      },
+      {
+        "name": "ruby",
+        "can_compile": false
+      },
+      {
+        "name": "java",
+        "can_compile": true
+      }
+    ],
+    "qlpacks_qry_suites": {
+      "code-scanning": {
+        "go": "go-code-scanning.qls",
+        "java": "java-code-scanning.qls",
+        "cpp": "cpp-code-scanning.qls",
+        "csharp": "csharp-code-scanning.qls",
+        "python": "python-code-scanning.qls",
+        "javascript": "javascript-code-scanning.qls",
+        "ruby": "ruby-code-scanning.qls",
+        "swift": "swift-code-scanning.qls"
+      },
+      "lgtm": {
+        "go": "go-lgtm.qls",
+        "java": "java-lgtm.qls",
+        "cpp": "cpp-lgtm.qls",
+        "csharp": "csharp-lgtm.qls",
+        "python": "python-lgtm.qls",
+        "javascript": "javascript-lgtm.qls",
+        "ruby": "ruby-lgtm.qls"
+      },
+      "lgtm-full": {
+        "go": "go-lgtm-full.qls",
+        "java": "java-lgtm-full.qls",
+        "cpp": "cpp-lgtm-full.qls",
+        "csharp": "csharp-lgtm-full.qls",
+        "python": "python-lgtm-full.qls",
+        "javascript": "javascript-lgtm-full.qls",
+        "ruby": "ruby-lgtm-full.qls"
+      },
+      "security-and-quality": {
+        "go": "go-security-and-quality.qls",
+        "java": "java-security-and-quality.qls",
+        "cpp": "cpp-security-and-quality.qls",
+        "csharp": "csharp-security-and-quality.qls",
+        "python": "python-security-and-quality.qls",
+        "javascript": "javascript-security-and-quality.qls",
+        "ruby": "ruby-security-and-quality.qls",
+        "swift": "swift-security-and-quality.qls"
+      },
+      "security-experimental": {
+        "go": "go-security-experimental.qls",
+        "java": "java-security-experimental.qls",
+        "cpp": "cpp-security-experimental.qls",
+        "csharp": "csharp-security-experimental.qls",
+        "python": "python-security-experimental.qls",
+        "javascript": "javascript-security-experimental.qls",
+        "ruby": "ruby-security-experimental.qls",
+        "swift": "swift-security-experimental.qls"
+      },
+      "security-extended": {
+        "go": "go-security-extended.qls",
+        "java": "java-security-extended.qls",
+        "cpp": "cpp-security-extended.qls",
+        "csharp": "csharp-security-extended.qls",
+        "python": "python-security-extended.qls",
+        "javascript": "javascript-security-extended.qls",
+        "ruby": "ruby-security-extended.qls",
+        "swift": "swift-security-extended.qls"
+      }
+    }
+  }
