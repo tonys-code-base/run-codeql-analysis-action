@@ -72,16 +72,18 @@ function upload_sarif() {
         --sarif=${SARIF} \
         --checkout-path=${SRC} \
         --github-url=https://github.com/ \
-        --format=json \
+        --format=text \
         --quiet"
 
-    if cql_sarif_log_json=$($cql_upload_sarif_cmd 2>&1) ; then
+    if cql_sarif_log=$($cql_upload_sarif_cmd 2>&1); then
         echo -e "${BLUE_FG}Sarif file successfully uploaded to GitHub:${SARIF}${RESET}"
-        echo -e "${BLUE_FG}${cql_sarif_log_json}${RESET}"
-        echo -e "cql_sarif_log_json=${cql_sarif_log_json}" >> "GITHUB_OUTPUT"
+        echo -e "${BLUE_FG}${cql_sarif_log}${RESET}"
+        cql_sarif_output_log=+="${cql_sarif_log}\n"
+        echo -e "cql_sarif_output_log=${cql_sarif_output_log}" >>"GITHUB_OUTPUT"
     else
         echo -e "${RED_FG}Error: Failed trying to upload sarif:${SARIF}${RESET}"
-        echo -e "${RED_FG}${cql_sarif_log_json}.${RESET}"
+        cql_sarif_output_log=+="${cql_sarif_log}\n"
+        echo -e "${RED_FG}${cql_sarif_output_log}.${RESET}"
         exit 1
     fi
 
@@ -201,7 +203,8 @@ for lang in "${discovered_langs[@]}"; do
 
         echo -e "${GREEN_FG}CodeQL scan complete for:${RESET}"
         echo -e "${GREEN_FG}      • repository: ${INPUT_REPO}${RESET}"
-        echo -e "${GREEN_FG}      • ref    : ${INPUT_REF}${RESET}"
+        echo -e "${GREEN_FG}      • ref       : ${INPUT_REF}${RESET}"
+        echo -e "${GREEN_FG}      • language  : ${lang}${RESET}"
     else
         echo -e "${YELLOW_FG}Scanning for language ${lang} is NOT currently supported...skipping.${lang}${RESET}"
     fi

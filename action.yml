@@ -13,35 +13,45 @@ inputs:
     required: false
     default: ${{ github.sha }}
   language_to_scan:
-    description: 'Example, python'
+    description: 'The source language(s) to carry out the scan against.
+                  Example,
+                    - to scan for a single language (such as python): "python".
+                    - to scan multiple languages (such as python and javascript): "python,javascript"
+                  '
     required: true
   token:
     description: 'GitHub token'
     required: true
   codeql_scan_type:
     description: 'Query suite to use for the analysis
-      https://docs.github.com/en/code-security/codeql-cli/codeql-cli-manual/database-analyze#querysuitepack
-      '
+                  https://docs.github.com/en/code-security/codeql-cli/codeql-cli-manual/database-analyze#querysuitepack
+                  '
     required: false
     default: 'code-scanning'
   build_mode:
-    description: 'Used for compiled languages. Set to none, autobuild or manual'
+    description: 'Build mode to use for creating the CodeQL DB. Used for compiled languages
+                  https://docs.github.com/en/code-security/codeql-cli/codeql-cli-manual/database-create#--build-modemode
+                  '
     required: false
     default: ''
   build_command:
     description: 'Used for compiled languages. Build command or script that
-      invokes the build process for the codebase'
+                  invokes the build process for the codebase
+                  https://docs.github.com/en/code-security/codeql-cli/codeql-cli-manual/database-create#-c---commandcommand
+                  '
     required: false
     default: ''
   codeql_config_file:
-    description: 'codeql_config_file'
+    description: 'Path to CodeQL code scanning configuration file
+                  https://docs.github.com/en/code-security/codeql-cli/codeql-cli-manual/database-create#--codescanning-configfile
+                  '
     required: false
     default: ''
 
 outputs:
-  cql_sarif_log_json:
-    description: 'JSON-formatted Docker run step output'
-    value: ${{ toJSON(steps.run-codeql-scan.outputs.cql_sarif_log_json) }}
+  cql_sarif_output_log:
+    description: 'Log returned from sarif upload to GitHub'
+    value: ${{ steps.run-codeql-scan.outputs.cql_sarif_output_log }}
 
 runs:
   using: 'composite'
