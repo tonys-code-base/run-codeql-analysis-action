@@ -37,13 +37,12 @@ function run_codeql_analyze() {
     local DB_PATH="$1"
     local LANGUAGE_NAME="$2"
     local QUERY_SUITE="$3"
-    local SARIF_PATH=$4
+    local SARIF_PATH="$4"
 
     cql_analyze_db="codeql database analyze ${DB_PATH}/${LANGUAGE_NAME} \
-        ${QUERY_SUITE} \
+      ${QUERY_SUITE} \
         --sarif-category=${LANGUAGE_NAME} \
-        --download \
-        --format=sarif-latest \
+        --format=sarifv2.1.0 \
         --output=${SARIF_PATH} \
         --no-rerun \
         --sarif-include-query-help=always \
@@ -89,7 +88,7 @@ function upload_sarif() {
 
 }
 
-cd "${INPUT_CODEQL_HOME}" || exit
+cd "${INPUT_CODEQL_HOME}" || exit 1
 
 echo -e "${BLUE_FG}${UNDERLINE}Beginning CodeQL scan for the following target:${RESET}"
 echo -e "${BLUE_FG}      • repository: ${INPUT_REPO}${RESET}"
