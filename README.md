@@ -37,7 +37,7 @@ To use the action for scanning private repositories, a [GitHub Advanced Security
 **Note:** 
 
 - Given the nature of the build process for compiled languages, attempting to cover the anticipated range of build command/mode combinations can be extremely time consuming, as such, the action might need further tweaking
-- Consider this release as beta, and feel free to log any issues you come across
+- Feel free to log any issues you come across
 
 ## Inputs
 
